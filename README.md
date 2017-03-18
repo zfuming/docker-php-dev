@@ -23,7 +23,7 @@
 
 		
 ###安装
-首要步骤：拷贝 /compose-lnmp-drupal/etc 到对应的memcache或redis或memcached
+首要步骤：拷贝 /docker-php-dev/etc 到对应的memcache或redis或memcached
 	可选：
 	开启mysql远程登录：
 		去掉
@@ -32,22 +32,22 @@
 * 如果需要包含memcached的环境，执行如下命令：
 
 ```bash
-git clone git@github.com:terryzwt/compose-lnmp-drupal.git
-cd compose-lnmp-drupal/memcached
+git clone git@github.com:terryzwt/docker-php-dev.git
+cd docker-php-dev/memcached
 docker-compose up -d
 ```
 * 如果需要包含redis的环境，执行如下命令：
 
 ```bash
-git clone git@github.com:terryzwt/compose-lnmp-drupal.git
-cd compose-lnmp-drupal/redis
+git clone git@github.com:terryzwt/docker-php-dev.git
+cd docker-php-dev/redis
 docker-compose up -d
 ```
 * 如果需要包含oci8的环境，执行如下命令：
 
 ```bash
-git clone git@github.com:terryzwt/compose-lnmp-drupal.git
-cd compose-lnmp-drupal/oci8
+git clone git@github.com:zfuming/docker-php-dev.git
+cd docker-php-dev/oci8
 docker-compose up -d
 ```
 ###代码目录说明
