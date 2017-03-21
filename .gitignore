@@ -1,7 +1,8 @@
 .DS_Store
 .idea
 app
-mysql-data
+php7/mysql-data
+php5/mysql-data
 memcached/etc
 redis/etc
 oci8-memcached/etc
