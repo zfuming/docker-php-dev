@@ -1,0 +1,21 @@
+version: '2'
+services:
+  nginx:
+    image: "nginx"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ../etc/nginx:/etc/nginx
+      - ../app/web:/app/web
+    links:
+      - node-dev:node-dev
+    depends_on:
+      - node-dev
+    network_mode: "bridge"
+  node-dev:
+    image: "node-dev"
+    working_dir: /app/web
+    volumes:
+      - ../app/web:/app/web
+    network_mode: "bridge"
