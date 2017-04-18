@@ -7,6 +7,7 @@ services:
       - "443:443"
     volumes:
       - ../etc/nginx:/etc/nginx
+      - ../etc/localtime:/etc/localtime
       - ../app/web:/app/web
     links:
       - php7-fpm:php-fpm
@@ -16,19 +17,19 @@ services:
     image: "zterry95/docker-php7:latest"
     volumes:
       - ../app/web:/app/web
+      - ../etc/localtime:/etc/localtime
       - ../etc/php:/usr/local/etc/php
       - ../etc/php-fpm:/usr/local/etc
     depends_on:
       - mysql
-      - memcached
     links:
       - mysql:mysql
-      - memcached:memcached
   mysql:
     image: mysql/mysql-server:5.7.17
     ports:
       - "3306:3306"
     volumes:
+      - ../etc/localtime:/etc/localtime
       - ./mysql-data:/var/lib/mysql
       #- ./etc/mysql:/etc/mysql/conf.d
       - ../etc/mysql/my.cnf:/etc/my.cnf
@@ -36,7 +37,3 @@ services:
       TZ: 'Asia/Shanghai'
       MYSQL_ROOT_PASSWORD: root
       MYSQL_ROOT_HOST: "%"
-  memcached:
-    image: memcached
-    mem_limit: 512M 
-    command: memcached -m 512M
