@@ -2,7 +2,6 @@ version: '2'
 services:
   nginx:
     image: "nginx"
-    container_name: "nginx"
     ports:
       - "80:80"
       - "443:443"
@@ -10,45 +9,32 @@ services:
       - /Users/zfm/Documents/docker/etc/nginx:/etc/nginx
       - /Users/zfm/Documents/docker/etc/localtime:/etc/localtime
       - /Users/zfm/Documents/docker/app/web:/app/web
+    network_mode: "bridge"
     links:
-      - php7-fpm:php7-fpm
-      - php5-fpm:php5-fpm
+      - php-fpm:php-fpm
     depends_on:
-      - php7-fpm
-      - php5-fpm
-  php5-fpm:
-    image: "registry.cn-hangzhou.aliyuncs.com/zfuming/php5-dev:latest"
-    container_name: "php5-fpm"
-    volumes:
-      - /Users/zfm/Documents/docker/app/web:/app/web
-      - /Users/zfm/Documents/docker/etc/localtime:/etc/localtime
-      - /Users/zfm/Documents/docker/etc/php5:/usr/local/etc/php
-      - /Users/zfm/Documents/docker/etc/php5-fpm:/usr/local/etc
-    depends_on:
-      - mysql
-    links:
-      - mysql:mysql
-  php7-fpm:
+      - php-fpm
+  php-fpm:
     image: "zterry95/docker-php7:latest"
-    container_name: "php7-fpm"
     volumes:
       - /Users/zfm/Documents/docker/app/web:/app/web
       - /Users/zfm/Documents/docker/etc/localtime:/etc/localtime
-      - /Users/zfm/Documents/docker/etc/php7:/usr/local/etc/php
-      - /Users/zfm/Documents/docker/etc/php7-fpm:/usr/local/etc
+      - /Users/zfm/Documents/docker/etc/php:/usr/local/etc/php
+      - /Users/zfm/Documents/docker/etc/php-fpm:/usr/local/etc
+    network_mode: "bridge"
     depends_on:
       - mysql
     links:
       - mysql:mysql
   mysql:
     image: mysql/mysql-server:5.7.17
-    container_name: "mysql"
     ports:
       - "3306:3306"
     volumes:
       - /Users/zfm/Documents/docker/etc/localtime:/etc/localtime
       - /Users/zfm/Documents/docker/data/mysql-data:/var/lib/mysql
       - /Users/zfm/Documents/docker/etc/mysql/my.cnf:/etc/my.cnf
+    network_mode: "bridge"
     environment:
       TZ: 'Asia/Shanghai'
       MYSQL_ROOT_PASSWORD: root
