@@ -1,0 +1,41 @@
+version: '2'
+services:
+  nginx:
+    image: "nginx:latest"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ../app/web:/app/web
+      - ./etc/nginx:/etc/nginx
+      - ./etc/localtime:/etc/localtime
+    network_mode: "bridge"
+    links:
+      - php_fpm:php-fpm
+    depends_on:
+      - php_fpm
+  php_fpm:
+    image: "zfm-php7-fpm:v1"
+    volumes:
+      - ../app/web:/app/web
+      - ./etc/localtime:/etc/localtime
+      - ./etc/php:/usr/local/etc/php
+      - ./etc/php-fpm:/usr/local/etc
+    network_mode: "bridge"
+    depends_on:
+      - mysql
+    links:
+      - mysql:mysql
+  mysql:
+    image: "mysql/mysql-server:5.7.17"
+    ports:
+      - "3306:3306"
+    volumes:
+      - ../data/mysql-data:/var/lib/mysql
+      - ./etc/localtime:/etc/localtime
+      - ./etc/mysql/my.cnf:/etc/my.cnf
+    network_mode: "bridge"
+    environment:
+      TZ: 'Asia/Shanghai'
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_HOST: "%"
