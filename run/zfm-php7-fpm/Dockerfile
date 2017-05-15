@@ -20,8 +20,9 @@ apt-get install -y --no-install-recommends \
     libmcrypt-dev && \
     docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr && \
     docker-php-ext-install gd pdo_mysql mysqli opcache intl bcmath zip mcrypt sockets && \
-    pecl install memcached \
-    docker-php-ext-enable bcmath zip pdo_mysql mcrypt sockets memcached
+    pecl install memcached xdebug \
+    docker-php-ext-enable bcmath zip pdo_mysql mcrypt sockets memcached xdebug
+
 # drush command
 ADD ./drush.phar /usr/local/bin/drush
 RUN chmod +x /usr/local/bin/drush

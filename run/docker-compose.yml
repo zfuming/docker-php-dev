@@ -16,6 +16,11 @@ services:
       - php_fpm
   php_fpm:
     image: "zfm-php7-fpm:v1"
+    expose:
+      - "9000"
+    environment:
+      PHP_XDEBUG_ENABLED: 1
+      XDEBUG_CONFIG: remote_host=10.254.254.254
     volumes:
       - ../app/web:/app/web
       - ./etc/localtime:/etc/localtime
