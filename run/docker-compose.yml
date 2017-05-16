@@ -11,7 +11,7 @@ services:
       - ./etc/dnsmasq/dnsmasq.conf:/etc/dnsmasq.conf
       - ./etc/dnsmasq/dnsmasq.d:/etc/dnsmasq.d
   nginx:
-    image: "nginx:latest"
+    image: "nginx:alpine"
     ports:
       - "80:80"
       - "443:443"
