@@ -14,13 +14,18 @@ services:
       - php_fpm:php-fpm
     depends_on:
       - php_fpm
+  dns-server:
+    image: "andyshinn/dnsmasq:latest"
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - ./etc/dnsmasq/dnsmasq.conf:/etc/dnsmasq.conf
+      - ./etc/dnsmasq/dnsmasq.d:/etc/dnsmasq.d
   php_fpm:
     image: "zfm-php7-fpm:v1"
-    expose:
-      - "9000"
-    environment:
-      PHP_XDEBUG_ENABLED: 1
-      XDEBUG_CONFIG: remote_host=10.254.254.254
     volumes:
       - ../app/web:/app/web
       - ./etc/localtime:/etc/localtime
@@ -32,7 +37,7 @@ services:
     links:
       - mysql:mysql
   mysql:
-    image: "mysql/mysql-server:5.7.17"
+    image: "mysql:5.7"
     ports:
       - "3306:3306"
     volumes:

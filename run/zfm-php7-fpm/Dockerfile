@@ -3,12 +3,14 @@ ENV DRUSH_VERSION 8.1.2
 
 RUN apt-get clean -y
 # Install the PHP extensions we need
+
 RUN apt-get update && \
 apt-get install -y --no-install-recommends \
     curl \
     mysql-client \
     libmemcached-dev \
     libz-dev \
+    libzip-dev \
     libpq-dev \
     libjpeg-dev \
     libpng12-dev \
@@ -20,17 +22,25 @@ apt-get install -y --no-install-recommends \
     libmcrypt-dev && \
     docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr && \
     docker-php-ext-install gd pdo_mysql mysqli opcache intl bcmath zip mcrypt sockets && \
-    pecl install memcached xdebug \
-    docker-php-ext-enable bcmath zip pdo_mysql mcrypt sockets memcached xdebug
+    docker-php-ext-enable bcmath zip pdo_mysql mcrypt sockets
+
+# install memcached 
+RUN pecl install memcached
+
+# install xdebug
+RUN pecl install xdebug
 
 # drush command
 ADD ./drush.phar /usr/local/bin/drush
 RUN chmod +x /usr/local/bin/drush
+
 # install composer
 ADD ./composer.phar /usr/local/bin/composer
 RUN chmod +x /usr/local/bin/composer
+
 # config china mirror
 RUN composer config -g repo.packagist composer https://packagist.phpcomposer.com
+
 # install drupal console
 RUN curl https://drupalconsole.com/installer -L -o drupal.phar && \
     mv drupal.phar /usr/local/bin/drupal && \
