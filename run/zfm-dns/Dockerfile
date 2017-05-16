@@ -1,9 +1,4 @@
-FROM ubuntu:16.04
-
-RUN apt-get clean -y
-
-RUN apt-get update && \
-apt-get install -y dnsmasq
-
+FROM alpine:3.4
+RUN apk --no-cache add dnsmasq
 EXPOSE 53 53/udp
 ENTRYPOINT ["dnsmasq", "-k"]
