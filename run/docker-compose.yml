@@ -1,7 +1,7 @@
 version: '2'
 services:
   dns_server:
-    image: "andyshinn/dnsmasq:latest"
+    image: "zfming/dnsmasq:latest"
     ports:
       - "53:53/tcp"
       - "53:53/udp"
