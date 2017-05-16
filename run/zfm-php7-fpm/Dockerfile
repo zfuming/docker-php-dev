@@ -1,4 +1,4 @@
-FROM php:7.1-fpm
+FROM php:7.1.3-fpm
 ENV DRUSH_VERSION 8.1.2
 
 RUN apt-get clean -y
