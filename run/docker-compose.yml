@@ -1,5 +1,15 @@
 version: '2'
 services:
+  dns_server:
+    image: "andyshinn/dnsmasq:latest"
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - ./etc/dnsmasq/dnsmasq.conf:/etc/dnsmasq.conf
+      - ./etc/dnsmasq/dnsmasq.d:/etc/dnsmasq.d
   nginx:
     image: "nginx:latest"
     ports:
@@ -14,18 +24,8 @@ services:
       - php_fpm:php-fpm
     depends_on:
       - php_fpm
-  dns-server:
-    image: "andyshinn/dnsmasq:latest"
-    ports:
-      - "53:53/tcp"
-      - "53:53/udp"
-    cap_add:
-      - NET_ADMIN
-    volumes:
-      - ./etc/dnsmasq/dnsmasq.conf:/etc/dnsmasq.conf
-      - ./etc/dnsmasq/dnsmasq.d:/etc/dnsmasq.d
   php_fpm:
-    image: "zfm-php7-fpm:v1"
+    image: "zfming/php-xdebug:latest"
     volumes:
       - ../app/web:/app/web
       - ./etc/localtime:/etc/localtime
