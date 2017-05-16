@@ -1,0 +1,54 @@
+{
+  "Services": {
+    "dns_server": {
+      "Image": "zfming/dnsmasq@sha256:615a38e808c3e8b3dddbd42f6f49cf94218e5ffb69f273d23fdfe5e85037a0ea", 
+      "Networks": [
+        "default"
+      ], 
+      "Ports": [
+        {
+          "Port": 53, 
+          "Protocol": "tcp"
+        }, 
+        {
+          "Port": 53, 
+          "Protocol": "udp"
+        }
+      ]
+    }, 
+    "mysql": {
+      "Env": [
+        "MYSQL_ROOT_PASSWORD=root", 
+        "MYSQL_ROOT_HOST=%", 
+        "TZ=Asia/Shanghai"
+      ], 
+      "Image": "mysql@sha256:2f4b1900c0ee53f344564db8d85733bd8d70b0a78cd00e6d92dc107224fc84a5", 
+      "Networks": [], 
+      "Ports": [
+        {
+          "Port": 3306, 
+          "Protocol": "tcp"
+        }
+      ]
+    }, 
+    "nginx": {
+      "Image": "nginx@sha256:33eb1ed1e802d4f71e52421f56af028cdf12bb3bfff5affeaf5bf0e328ffa1bc", 
+      "Networks": [], 
+      "Ports": [
+        {
+          "Port": 80, 
+          "Protocol": "tcp"
+        }, 
+        {
+          "Port": 443, 
+          "Protocol": "tcp"
+        }
+      ]
+    }, 
+    "php_fpm": {
+      "Image": "zfming/php-xdebug@sha256:4c7d3095624009d8a9f28a3db17410b56632954befa814db9731a4abca3bf9fc", 
+      "Networks": []
+    }
+  }, 
+  "Version": "0.1"
+}

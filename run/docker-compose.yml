@@ -25,7 +25,7 @@ services:
     depends_on:
       - php_fpm
   php_fpm:
-    image: "zfming/php-xdebug:latest"
+    image: "zfming/php-xdebug:alpine"
     volumes:
       - ../app/web:/app/web
       - ./etc/localtime:/etc/localtime
