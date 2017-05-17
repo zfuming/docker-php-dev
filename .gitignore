@@ -7,3 +7,5 @@ php5/mysql-data
 memcached/etc
 redis/etc
 oci8-memcached/etc
+docker-php-dev/run/dnsmasq
+docker-php-dev/run/php-xdebug
