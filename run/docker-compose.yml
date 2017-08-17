@@ -29,7 +29,6 @@ services:
     volumes:
       - ../app/web:/app/web
       - ./etc/localtime:/etc/localtime
-      - ./etc/php:/usr/local/etc/php
       - ./etc/php-fpm:/usr/local/etc
     network_mode: "bridge"
     depends_on:
